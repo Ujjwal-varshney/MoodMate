@@ -1,222 +1,275 @@
+<div align="center">
+
 # MoodMate
 
-A personal AI-powered journaling app that understands how you feel. Write your thoughts, let AI detect your mood, chat with a caring AI friend, and track your emotional journey over time.
+### Your AI-Powered Journaling Companion
 
-![Python](https://img.shields.io/badge/Python-3.12+-blue)
-![Next.js](https://img.shields.io/badge/Next.js-16-black)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green)
-![Ollama](https://img.shields.io/badge/Ollama-phi3:mini-purple)
+*Write your thoughts. Let AI understand your mood. Track your emotional journey.*
 
----
+<br />
 
-## Features
+![Python](https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Ollama](https://img.shields.io/badge/Ollama-phi3:mini-7C3AED?style=for-the-badge&logo=ollama&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 
-### AI Mood Detection
-- Automatically detects your mood from journal text using Ollama's phi3:mini model
-- Classifies into 7 moods: Happy, Sad, Anxious, Angry, Calm, Loved, Neutral
-- Toggle between AI auto-detection and manual mood selection
-- Animated mood reveal after saving an entry
-- Falls back to "neutral" gracefully if Ollama is unavailable
+<br />
 
-### AI Chat Companion
-- Chat with MoodMate — a warm, emotionally intelligent AI friend
-- Contextually aware: references your recent diary entries
-- Natural, casual conversation style (not a therapist, a friend)
-- Powered by Ollama phi3:mini running locally
+[Features](#-features) &nbsp;&bull;&nbsp; [Quick Start](#-quick-start) &nbsp;&bull;&nbsp; [Tech Stack](#-tech-stack) &nbsp;&bull;&nbsp; [API Docs](#-api-reference) &nbsp;&bull;&nbsp; [Project Structure](#-project-structure)
 
-### Calendar View
-- Monthly calendar grid with mood-colored dots on each day
-- Navigate between months with prev/next arrows
-- Today highlighted automatically
-- Click any day to see that day's entries with timestamps
-- Visual mood history at a glance
+<br />
 
-### Journal Entries
-- Write diary entries with optional titles
-- Real-time word count
-- Search entries by content
-- Filter entries by mood
-- Timestamps with date and time on every entry
-
-### Statistics & Streaks
-- Total entry count
-- Writing streak tracker (consecutive days)
-- Mood distribution breakdown
-
-### Themes
-- **Dark** — warm blacks and beige accents (default)
-- **Light** — clean off-white with brown accents
-- **Midnight** — deep blue with purple accents
+</div>
 
 ---
 
-## Tech Stack
+## &#x2728; Features
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 16, React 19, TypeScript |
-| Styling | Tailwind CSS 4, Framer Motion |
-| Icons | Lucide React |
-| Backend | FastAPI (Python 3.12+) |
-| Database | SQLite via SQLAlchemy |
-| AI Model | Ollama with phi3:mini |
-| Auth | JWT (python-jose) |
+<table>
+<tr>
+<td width="50%">
 
----
+### &#x1F9E0; AI Mood Detection
+Automatically detects your mood from journal text using **Ollama phi3:mini**. Classifies into 7 moods with color-coded indicators. Toggle between AI auto-detection and manual selection anytime.
 
-## Project Structure
+</td>
+<td width="50%">
 
-```
-MoodMate/
-├── backend/
-│   ├── main.py                  # FastAPI app entry point
-│   ├── database.py              # SQLite + SQLAlchemy setup
-│   ├── models.py                # User & Entry ORM models
-│   ├── auth.py                  # JWT auth + password hashing
-│   ├── requirements.txt         # Python dependencies
-│   ├── routes/
-│   │   ├── auth_routes.py       # POST /signup, /login, GET /me
-│   │   ├── entry_routes.py      # CRUD entries + calendar endpoint
-│   │   ├── chat_routes.py       # POST /chat (AI companion)
-│   │   ├── mood_routes.py       # POST /mood/predict
-│   │   └── stats_routes.py      # GET /stats
-│   └── services/
-│       └── mood_predictor.py    # Ollama mood classification
-│
-├── frontend/
-│   └── src/
-│       ├── app/
-│       │   ├── page.tsx         # Home / Dashboard
-│       │   ├── write/page.tsx   # New journal entry
-│       │   ├── entries/page.tsx # Entry history
-│       │   ├── calendar/page.tsx# Calendar view
-│       │   ├── chat/page.tsx    # AI chat
-│       │   ├── login/page.tsx   # Login
-│       │   ├── signup/page.tsx  # Sign up
-│       │   ├── layout.tsx       # Root layout
-│       │   └── globals.css      # Theme CSS variables
-│       ├── components/
-│       │   ├── AppShell.tsx     # Auth guard + layout wrapper
-│       │   ├── Sidebar.tsx      # Navigation sidebar + mobile nav
-│       │   ├── EntryCard.tsx    # Reusable entry preview card
-│       │   ├── Loader.tsx       # Spinners + skeleton loaders
-│       │   └── PageTransition.tsx # Page animations
-│       ├── context/
-│       │   ├── AuthContext.tsx   # Auth state + login/logout
-│       │   └── ThemeContext.tsx  # Theme switching
-│       └── lib/
-│           ├── api.ts           # API client (all endpoints)
-│           └── utils.ts         # Shared formatDate utility
-│
-└── README.md
-```
+### &#x1F4AC; AI Chat Companion
+Chat with MoodMate — a warm, emotionally intelligent AI friend. It references your recent diary entries naturally, like a friend who remembers things.
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### &#x1F4C5; Calendar View
+Monthly calendar grid with mood-colored dots on each day. Navigate months, click any day to see entries with timestamps. Your mood history at a glance.
+
+</td>
+<td width="50%">
+
+### &#x1F4D3; Smart Journaling
+Write entries with optional titles, real-time word count, search by content, and filter by mood. Every entry shows date and time.
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### &#x1F525; Stats & Streaks
+Track your total entries, writing streak (consecutive days), and mood distribution. Stay motivated with your journaling habit.
+
+</td>
+<td width="50%">
+
+### &#x1F3A8; 3 Beautiful Themes
+**Dark** — warm blacks & beige accents<br/>
+**Light** — clean off-white & brown<br/>
+**Midnight** — deep blue & purple
+
+</td>
+</tr>
+</table>
 
 ---
 
-## Prerequisites
+## &#x1F3AF; Mood System
 
-- **Python** 3.12+
-- **Node.js** 22+
-- **npm** 10+
-- **Ollama** (for AI features)
+<div align="center">
+
+| Mood | Color | Preview |
+|:----:|:-----:|:-------:|
+| Happy | `#8abf7e` | ![happy](https://img.shields.io/badge/-%20%20%20%20-8abf7e?style=flat-square) |
+| Sad | `#7b9fc9` | ![sad](https://img.shields.io/badge/-%20%20%20%20-7b9fc9?style=flat-square) |
+| Anxious | `#c9b36e` | ![anxious](https://img.shields.io/badge/-%20%20%20%20-c9b36e?style=flat-square) |
+| Angry | `#c97b7b` | ![angry](https://img.shields.io/badge/-%20%20%20%20-c97b7b?style=flat-square) |
+| Calm | `#7bbab0` | ![calm](https://img.shields.io/badge/-%20%20%20%20-7bbab0?style=flat-square) |
+| Loved | `#c9899b` | ![loved](https://img.shields.io/badge/-%20%20%20%20-c9899b?style=flat-square) |
+| Neutral | `#8a8680` | ![neutral](https://img.shields.io/badge/-%20%20%20%20-8a8680?style=flat-square) |
+
+</div>
 
 ---
 
-## Installation
+## &#x1F680; Quick Start
 
-### 1. Clone the repository
+### Prerequisites
+
+| Tool | Version | Required |
+|------|---------|:--------:|
+| Python | 3.12+ | Yes |
+| Node.js | 22+ | Yes |
+| npm | 10+ | Yes |
+| Ollama | Latest | Optional* |
+
+> \* *The app works without Ollama — mood detection falls back to "neutral" and chat shows an error. All other features work normally.*
+
+### 1. Clone & Install
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Ujjwal-varshney/MoodMate.git
 cd MoodMate
 ```
 
-### 2. Backend setup
+<details>
+<summary><b>Backend Setup</b></summary>
 
 ```bash
 cd backend
 
-# Create virtual environment
+# Create & activate virtual environment
 python -m venv venv
 
-# Activate it
-# Windows:
+# Windows
 venv\Scripts\activate
-# macOS/Linux:
+# macOS / Linux
 source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
-### 3. Frontend setup
+</details>
+
+<details>
+<summary><b>Frontend Setup</b></summary>
 
 ```bash
 cd frontend
 npm install
 ```
 
-### 4. Ollama setup (for AI features)
+</details>
+
+<details>
+<summary><b>Ollama Setup (Optional)</b></summary>
 
 ```bash
-# Install Ollama from https://ollama.com
+# Install from https://ollama.com
 
-# Pull the phi3:mini model
+# Pull the model
 ollama pull phi3:mini
 
-# Start Ollama server (runs on port 11434)
+# Start the server
 ollama serve
 ```
 
-> **Note:** The app works without Ollama — mood detection falls back to "neutral" and the chat feature will show an error message. All other features work normally.
+</details>
 
----
+### 2. Run
 
-## Running the App
+Open **3 terminals** and run:
 
-Open **three terminals**:
-
-**Terminal 1 — Ollama** (optional, for AI features):
 ```bash
+# Terminal 1 — Ollama (optional)
 ollama serve
+
+# Terminal 2 — Backend
+cd backend && uvicorn main:app --reload
+# => http://localhost:8000
+
+# Terminal 3 — Frontend
+cd frontend && npm run dev
+# => http://localhost:3000
 ```
 
-**Terminal 2 — Backend**:
-```bash
-cd backend
-# Activate venv first (see above)
-uvicorn main:app --reload
-# Runs on http://localhost:8000
-```
-
-**Terminal 3 — Frontend**:
-```bash
-cd frontend
-npm run dev
-# Runs on http://localhost:3000
-```
-
-Open **http://localhost:3000** in your browser.
+Open **http://localhost:3000** and start journaling!
 
 ---
 
-## API Reference
+## &#x1F6E0;&#xFE0F; Tech Stack
 
-### Authentication
+<div align="center">
+
+```
+ Frontend                    Backend                     AI
+ ────────                    ───────                     ──
+ Next.js 16                  FastAPI                     Ollama
+ React 19                    SQLAlchemy                  phi3:mini
+ TypeScript 5                SQLite
+ Tailwind CSS 4              JWT Auth
+ Framer Motion               Python 3.12+
+ Lucide Icons
+```
+
+</div>
+
+---
+
+## &#x1F4C1; Project Structure
+
+```
+MoodMate/
+│
+├── backend/
+│   ├── main.py                    # FastAPI app + CORS + routers
+│   ├── database.py                # SQLite engine & session
+│   ├── models.py                  # User & Entry models
+│   ├── auth.py                    # JWT tokens & password hashing
+│   ├── requirements.txt
+│   ├── routes/
+│   │   ├── auth_routes.py         # /signup, /login, /me
+│   │   ├── entry_routes.py        # CRUD + /calendar/{year}/{month}
+│   │   ├── chat_routes.py         # AI chat with diary context
+│   │   ├── mood_routes.py         # /mood/predict
+│   │   └── stats_routes.py        # /stats
+│   └── services/
+│       └── mood_predictor.py      # Ollama mood classification
+│
+├── frontend/src/
+│   ├── app/
+│   │   ├── page.tsx               # Home dashboard
+│   │   ├── write/page.tsx         # New entry + AI mood detect
+│   │   ├── entries/page.tsx       # History with search & filters
+│   │   ├── calendar/page.tsx      # Monthly mood calendar
+│   │   ├── chat/page.tsx          # AI companion chat
+│   │   ├── login/page.tsx         # Login
+│   │   └── signup/page.tsx        # Registration
+│   ├── components/
+│   │   ├── AppShell.tsx           # Auth guard + layout
+│   │   ├── Sidebar.tsx            # Nav sidebar + mobile nav
+│   │   ├── EntryCard.tsx          # Entry preview card
+│   │   ├── Loader.tsx             # Skeletons & spinners
+│   │   └── PageTransition.tsx     # Page animations
+│   ├── context/
+│   │   ├── AuthContext.tsx         # Auth state management
+│   │   └── ThemeContext.tsx        # Theme switching
+│   └── lib/
+│       ├── api.ts                 # API client
+│       └── utils.ts               # Date formatting
+│
+└── README.md
+```
+
+---
+
+## &#x1F4DA; API Reference
+
+> All endpoints (except auth) require `Authorization: Bearer <token>` header.
+
+### Auth
 
 | Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/signup` | Register a new user |
-| POST | `/api/auth/login` | Login and receive JWT |
-| GET | `/api/auth/me` | Get current user info |
+|:------:|----------|-------------|
+| `POST` | `/api/auth/signup` | Create account |
+| `POST` | `/api/auth/login` | Login & get JWT |
+| `GET` | `/api/auth/me` | Current user info |
 
-**Signup / Login request:**
+<details>
+<summary>Request / Response examples</summary>
+
+**Signup:**
 ```json
-{
-  "name": "John",        // signup only
-  "email": "john@example.com",
-  "password": "secret123"
-}
+{ "name": "John", "email": "john@example.com", "password": "secret123" }
+```
+
+**Login:**
+```json
+{ "email": "john@example.com", "password": "secret123" }
 ```
 
 **Response:**
@@ -227,100 +280,102 @@ Open **http://localhost:3000** in your browser.
 }
 ```
 
-All endpoints below require `Authorization: Bearer <token>` header.
-
----
+</details>
 
 ### Entries
 
 | Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/entries` | List all entries (filterable) |
-| POST | `/api/entries` | Create new entry |
-| GET | `/api/entries/calendar/{year}/{month}` | Entries grouped by day |
-| GET | `/api/entries/{id}` | Get single entry |
-| PUT | `/api/entries/{id}` | Update entry |
-| DELETE | `/api/entries/{id}` | Delete entry |
+|:------:|----------|-------------|
+| `GET` | `/api/entries` | List entries (?mood, ?search) |
+| `POST` | `/api/entries` | Create entry |
+| `GET` | `/api/entries/calendar/{year}/{month}` | Entries grouped by day |
+| `GET` | `/api/entries/{id}` | Single entry |
+| `PUT` | `/api/entries/{id}` | Update entry |
+| `DELETE` | `/api/entries/{id}` | Delete entry |
+
+<details>
+<summary>Request / Response examples</summary>
 
 **Create entry:**
 ```json
 {
-  "title": "Great day",        // optional, defaults to ""
-  "content": "Today was amazing...",
-  "mood": "auto"               // "auto" = AI detects, or: happy/sad/anxious/angry/calm/loved/neutral
+  "title": "Great day",
+  "content": "Today was amazing, I got promoted!",
+  "mood": "auto"
 }
 ```
+> `"auto"` = AI detects mood. Or pass: `happy`, `sad`, `anxious`, `angry`, `calm`, `loved`, `neutral`
 
 **Response:**
 ```json
 {
   "id": 1,
   "title": "Great day",
-  "content": "Today was amazing...",
+  "content": "Today was amazing, I got promoted!",
   "mood": "happy",
-  "word_count": 4,
+  "word_count": 7,
   "created_at": "2026-03-04T10:30:00Z",
   "updated_at": "2026-03-04T10:30:00Z"
 }
 ```
 
-**GET `/api/entries`** supports query params:
-- `?mood=happy` — filter by mood
-- `?search=keyword` — search entry content
-
-**GET `/api/entries/calendar/2026/3`** returns:
+**Calendar response** (`GET /api/entries/calendar/2026/3`):
 ```json
 {
-  "4": [{ "id": 1, "mood": "happy", ... }],
-  "5": [{ "id": 2, "mood": "calm", ... }, { "id": 3, "mood": "sad", ... }]
+  "4": [{ "id": 1, "mood": "happy", "content": "..." }],
+  "5": [{ "id": 2, "mood": "calm", "content": "..." }]
 }
 ```
 
----
+</details>
 
 ### Mood Prediction
 
 | Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/mood/predict` | Predict mood from text |
+|:------:|----------|-------------|
+| `POST` | `/api/mood/predict` | Predict mood from text |
 
-**Request:**
+<details>
+<summary>Request / Response examples</summary>
+
 ```json
+// Request
 { "content": "I had the best day ever!" }
-```
 
-**Response:**
-```json
+// Response
 { "mood": "happy" }
 ```
 
----
+</details>
 
 ### Chat
 
 | Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/chat` | Chat with AI companion |
+|:------:|----------|-------------|
+| `POST` | `/api/chat` | Chat with AI companion |
 
-**Request:**
+<details>
+<summary>Request / Response examples</summary>
+
 ```json
+// Request
 { "message": "Hey, I've been feeling off lately" }
+
+// Response
+{ "reply": "Hey, I noticed from your recent entries things have been tough. Want to talk about what's going on?" }
 ```
 
-**Response:**
-```json
-{ "reply": "Hey, I noticed from your recent entries that things have been tough. Want to talk about what's been going on?" }
-```
-
----
+</details>
 
 ### Statistics
 
 | Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/stats` | Get user statistics |
+|:------:|----------|-------------|
+| `GET` | `/api/stats` | User stats & mood breakdown |
 
-**Response:**
+<details>
+<summary>Response example</summary>
+
 ```json
 {
   "total_entries": 42,
@@ -329,17 +384,19 @@ All endpoints below require `Authorization: Bearer <token>` header.
 }
 ```
 
+</details>
+
 ---
 
-## Database Schema
+## &#x1F5C3;&#xFE0F; Database Schema
 
 ```sql
 CREATE TABLE users (
-    id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    name        VARCHAR(100) NOT NULL,
-    email       VARCHAR(255) UNIQUE NOT NULL,
-    hashed_password VARCHAR(255) NOT NULL,
-    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
+    id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    name             VARCHAR(100) NOT NULL,
+    email            VARCHAR(255) UNIQUE NOT NULL,
+    hashed_password  VARCHAR(255) NOT NULL,
+    created_at       DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE entries (
@@ -356,49 +413,39 @@ CREATE TABLE entries (
 
 ---
 
-## Mood System
-
-| Mood | Color | Hex |
-|------|-------|-----|
-| Happy | Green | `#8abf7e` |
-| Sad | Blue | `#7b9fc9` |
-| Anxious | Yellow | `#c9b36e` |
-| Angry | Red | `#c97b7b` |
-| Calm | Teal | `#7bbab0` |
-| Loved | Pink | `#c9899b` |
-| Neutral | Gray | `#8a8680` |
-
----
-
-## Pages
+## &#x1F522; Pages
 
 | Route | Page | Description |
 |-------|------|-------------|
 | `/` | Home | Dashboard with stats, quick actions, recent entries |
 | `/write` | Write | New journal entry with AI mood detection |
 | `/chat` | Chat | AI companion conversation |
-| `/calendar` | Calendar | Monthly view with mood dots |
-| `/entries` | Entries | Full history with search & filters |
-| `/login` | Login | Email/password login |
+| `/calendar` | Calendar | Monthly view with mood-colored dots |
+| `/entries` | Entries | Full history with search & mood filters |
+| `/login` | Login | Email & password login |
 | `/signup` | Sign Up | New account registration |
 
 ---
 
-## Configuration
+## &#x2699;&#xFE0F; Configuration
 
-| Setting | Value | Location |
-|---------|-------|----------|
-| JWT Secret | `moodmate-local-secret-key-change-in-production` | `backend/auth.py` |
+| Setting | Value | File |
+|---------|-------|------|
+| JWT Secret | `moodmate-local-secret-key-*` | `backend/auth.py` |
 | JWT Expiry | 30 days | `backend/auth.py` |
-| Database | `./moodmate.db` (SQLite) | `backend/database.py` |
-| Backend Port | 8000 | uvicorn default |
-| Frontend Port | 3000 | Next.js default |
-| Ollama Port | 11434 | Ollama default |
-| AI Model | phi3:mini | `backend/services/mood_predictor.py` |
+| Database | `./moodmate.db` | `backend/database.py` |
+| Backend Port | `8000` | uvicorn |
+| Frontend Port | `3000` | Next.js |
+| Ollama Port | `11434` | Ollama |
+| AI Model | `phi3:mini` | `backend/services/mood_predictor.py` |
 | CORS Origin | `http://localhost:3000` | `backend/main.py` |
 
 ---
 
-## License
+<div align="center">
 
-This project is for personal/educational use.
+### Built with &#x2764;&#xFE0F; by [Ujjwal Varshney](https://github.com/Ujjwal-varshney)
+
+*MoodMate — because your feelings matter.*
+
+</div>
