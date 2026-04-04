@@ -6,15 +6,20 @@ import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import Sidebar, { MobileNav } from "@/components/Sidebar";
 import { FullScreenLoader } from "@/components/Loader";
+import NotificationToast from "@/components/NotificationToast";
 import { Menu } from "lucide-react";
+import { isReminderEnabled, isNotificationSupported, sendReminder } from "@/lib/notifications";
+import { apiGetStats } from "@/lib/api";
 
 const publicRoutes = ["/login", "/signup"];
+const cleanRoutes = ["/onboarding"];
 
 function AppContent({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const isPublicRoute = publicRoutes.includes(pathname);
+  const isCleanRoute = cleanRoutes.includes(pathname);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -28,9 +33,34 @@ function AppContent({ children }: { children: React.ReactNode }) {
     setSidebarOpen(false);
   }, [pathname]);
 
+  // Daily reminder logic
+  useEffect(() => {
+    if (!user || !isNotificationSupported() || !isReminderEnabled()) return;
+
+    const checkAndRemind = () => {
+      const hour = new Date().getHours();
+      if (hour >= 20) {
+        apiGetStats()
+          .then((stats) => {
+            if (stats.streak === 0) {
+              sendReminder();
+            }
+          })
+          .catch(() => {});
+      }
+    };
+
+    // Check after a short delay on load
+    const timeout = setTimeout(checkAndRemind, 3000);
+    return () => clearTimeout(timeout);
+  }, [user]);
+
   if (isLoading) return <FullScreenLoader />;
   if (isPublicRoute) return <>{children}</>;
   if (!user) return <FullScreenLoader />;
+
+  // Clean layout for onboarding (no sidebar/nav)
+  if (isCleanRoute) return <>{children}</>;
 
   return (
     <div className="flex min-h-screen">
@@ -59,6 +89,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
       </div>
 
       <MobileNav />
+      <NotificationToast />
     </div>
   );
 }

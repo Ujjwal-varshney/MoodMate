@@ -28,3 +28,9 @@ Thumbs.db
 # Misc
 *.pem
 npm-debug.log*
+
+# ChromaDB vector store
+backend/chromadb_data/
+
+# Claude Code
+.claude/

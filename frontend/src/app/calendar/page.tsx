@@ -118,7 +118,7 @@ export default function CalendarPage() {
         </div>
 
         {/* Calendar Grid */}
-        <div className="bg-bg-card border border-border rounded-lg p-3 sm:p-4 mb-5">
+        <div className="card-elevated rounded-xl p-3 sm:p-4 mb-5">
           {/* Day Headers */}
           <div className="grid grid-cols-7 mb-2">
             {DAYS.map((d) => (
@@ -132,7 +132,7 @@ export default function CalendarPage() {
           <div className="grid grid-cols-7 gap-1">
             {cells.map((day, i) => {
               if (day === null) {
-                return <div key={`empty-${i}`} className="aspect-square" />;
+                return <div key={`empty-${i}`} className="min-h-[52px]" />;
               }
 
               const dayEntries = entries[String(day)] || [];
@@ -143,11 +143,20 @@ export default function CalendarPage() {
               // Get unique moods for this day
               const moods = [...new Set(dayEntries.map((e) => e.mood))];
 
+              // Get the earliest entry time for this day
+              const firstEntryTime = hasEntries
+                ? new Date(dayEntries[dayEntries.length - 1].created_at).toLocaleTimeString("en-US", {
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true,
+                  })
+                : null;
+
               return (
                 <button
                   key={day}
                   onClick={() => setSelectedDay(isSelected ? null : day)}
-                  className={`aspect-square rounded-lg flex flex-col items-center justify-center gap-0.5 text-sm transition-all relative ${
+                  className={`min-h-[52px] py-1 rounded-lg flex flex-col items-center justify-center gap-0.5 text-[11px] transition-all relative ${
                     isSelected
                       ? "bg-accent-dim border border-accent-border text-accent"
                       : isToday
@@ -157,16 +166,23 @@ export default function CalendarPage() {
                           : "text-text-muted"
                   }`}
                 >
-                  <span className="text-xs">{day}</span>
+                  <span className="text-xs font-medium">{day}</span>
                   {hasEntries && (
-                    <div className="flex gap-0.5">
-                      {moods.slice(0, 3).map((mood, mi) => (
-                        <span
-                          key={mi}
-                          className={`w-1.5 h-1.5 rounded-full ${moodDots[mood] || moodDots.neutral}`}
-                        />
-                      ))}
-                    </div>
+                    <>
+                      <div className="flex gap-0.5">
+                        {moods.slice(0, 3).map((mood, mi) => (
+                          <span
+                            key={mi}
+                            className={`w-1.5 h-1.5 rounded-full ${moodDots[mood] || moodDots.neutral}`}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-[8px] leading-tight text-text-muted truncate w-full text-center">
+                        {dayEntries.length > 1
+                          ? `${dayEntries.length} entries`
+                          : firstEntryTime}
+                      </span>
+                    </>
                   )}
                 </button>
               );
@@ -198,7 +214,7 @@ export default function CalendarPage() {
                       key={entry.id}
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="p-4 rounded-lg bg-bg-card border border-border"
+                      className="card-elevated p-4 rounded-xl"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-text-muted text-xs">
@@ -220,7 +236,7 @@ export default function CalendarPage() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-8 border border-border border-dashed rounded-lg">
+                <div className="text-center py-8 border border-border border-dashed rounded-xl">
                   <p className="text-text-muted text-sm">No entries on this day</p>
                 </div>
               )}

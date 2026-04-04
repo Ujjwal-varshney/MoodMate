@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send } from "lucide-react";
+import { Send, Sparkles } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import { apiChat } from "@/lib/api";
 
@@ -69,60 +69,81 @@ export default function ChatPage() {
   return (
     <PageTransition>
       <div className="max-w-2xl mx-auto h-[calc(100vh-8rem)] sm:h-[calc(100vh-6rem)] lg:h-[calc(100vh-4rem)] flex flex-col">
-        <div className="mb-4 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
-            <span className="text-bg-primary font-bold text-xs">M</span>
+        {/* Chat header */}
+        <div className="mb-4 flex items-center gap-3 px-1">
+          <div
+            className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center shrink-0"
+            style={{ boxShadow: "0 4px 12px rgba(201, 168, 124, 0.2)" }}
+          >
+            <Sparkles size={16} className="text-bg-primary" />
           </div>
           <div>
-            <p className="text-text-primary text-sm font-medium leading-tight">MoodMate</p>
-            <p className="text-text-muted text-[11px] flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-mood-happy" />
-              Online
+            <p className="text-text-primary text-sm font-semibold leading-tight">MoodMate AI</p>
+            <p className="text-text-muted text-[11px] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-mood-happy animate-pulse" />
+              Online — remembers your entries
             </p>
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto rounded-lg bg-bg-secondary border border-border p-3 sm:p-4 space-y-3 mb-3">
+        {/* Messages area */}
+        <div className="flex-1 overflow-y-auto rounded-xl bg-bg-secondary/50 border border-border p-4 sm:p-5 space-y-4 mb-3" style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.1)" }}>
           <AnimatePresence>
             {messages.map((msg) => (
               <motion.div
                 key={msg.id}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.2 }}
+                initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.25 }}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                <div className="max-w-[75%]">
+                <div className={`max-w-[80%] ${msg.role === "user" ? "" : "flex gap-2.5"}`}>
                   {msg.role === "assistant" && (
-                    <p className="text-text-muted text-[10px] mb-1 ml-1">MoodMate</p>
+                    <div className="w-7 h-7 rounded-lg bg-accent/15 flex items-center justify-center shrink-0 mt-0.5">
+                      <Sparkles size={12} className="text-accent" />
+                    </div>
                   )}
-                  <div className={`rounded-lg px-4 py-2.5 ${
-                    msg.role === "user"
-                      ? "bg-accent text-bg-primary"
-                      : "bg-bg-card border border-border text-text-primary"
-                  }`}>
-                    <p className="text-sm leading-relaxed">{msg.content}</p>
+                  <div>
+                    {msg.role === "assistant" && (
+                      <p className="text-text-muted text-[10px] mb-1 font-medium">MoodMate</p>
+                    )}
+                    <div className={`rounded-2xl px-4 py-3 ${
+                      msg.role === "user"
+                        ? "bg-accent text-bg-primary rounded-br-md"
+                        : "bg-bg-card border border-border text-text-primary rounded-bl-md"
+                    }`}
+                    style={msg.role === "user"
+                      ? { boxShadow: "0 2px 8px rgba(201, 168, 124, 0.15)" }
+                      : { boxShadow: "var(--shadow-sm)" }
+                    }>
+                      <p className="text-sm leading-relaxed">{msg.content}</p>
+                    </div>
+                    <p className={`text-[10px] text-text-muted mt-1.5 ${msg.role === "user" ? "text-right" : ""} mx-1`}>
+                      {msg.time}
+                    </p>
                   </div>
-                  <p className={`text-[10px] text-text-muted mt-1 ${msg.role === "user" ? "text-right" : ""} mx-1`}>
-                    {msg.time}
-                  </p>
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
 
+          {/* Typing indicator */}
           {isTyping && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-              <div className="bg-bg-card border border-border rounded-lg px-4 py-3">
-                <div className="flex gap-1">
-                  {[0, 1, 2].map((i) => (
-                    <motion.span
-                      key={i}
-                      className="w-1.5 h-1.5 bg-text-muted rounded-full"
-                      animate={{ opacity: [0.3, 1, 0.3] }}
-                      transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
-                    />
-                  ))}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex justify-start"
+            >
+              <div className="flex gap-2.5">
+                <div className="w-7 h-7 rounded-lg bg-accent/15 flex items-center justify-center shrink-0">
+                  <Sparkles size={12} className="text-accent" />
+                </div>
+                <div className="bg-bg-card border border-border rounded-2xl rounded-bl-md px-5 py-3.5" style={{ boxShadow: "var(--shadow-sm)" }}>
+                  <div className="flex gap-1.5">
+                    <span className="typing-dot" />
+                    <span className="typing-dot" />
+                    <span className="typing-dot" />
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -130,7 +151,8 @@ export default function ChatPage() {
           <div ref={endRef} />
         </div>
 
-        <div className="bg-bg-card border border-border rounded-lg p-2.5 flex items-end gap-2">
+        {/* Input bar */}
+        <div className="glass-card rounded-xl p-3 flex items-end gap-2.5">
           <textarea
             ref={textareaRef}
             value={input}
@@ -144,12 +166,13 @@ export default function ChatPage() {
             onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
             placeholder="Type a message..."
             rows={1}
-            className="flex-1 bg-transparent text-text-primary placeholder:text-text-muted text-sm outline-none resize-none max-h-[100px] py-1.5 px-1.5"
+            className="flex-1 bg-transparent text-text-primary placeholder:text-text-muted text-sm outline-none resize-none max-h-[100px] py-1.5 px-2"
           />
           <button
             onClick={send}
             disabled={!input.trim() || isTyping}
-            className="p-2 rounded-md bg-accent text-bg-primary hover:bg-accent-hover transition-colors disabled:opacity-30 shrink-0"
+            className="p-2.5 rounded-xl bg-accent text-bg-primary hover:bg-accent-hover transition-all disabled:opacity-30 shrink-0"
+            style={input.trim() && !isTyping ? { boxShadow: "0 2px 10px rgba(201, 168, 124, 0.25)" } : undefined}
           >
             <Send size={16} />
           </button>

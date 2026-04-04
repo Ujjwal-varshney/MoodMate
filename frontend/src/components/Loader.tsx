@@ -38,7 +38,7 @@ export function FullScreenLoader() {
 
 export function EntrySkeleton() {
   return (
-    <div className="p-4 rounded-lg bg-bg-card border border-border animate-pulse">
+    <div className="card-elevated p-4 rounded-xl animate-pulse">
       <div className="flex items-center justify-between mb-3">
         <div className="h-3 w-24 bg-bg-hover rounded" />
         <div className="h-5 w-16 bg-bg-hover rounded-full" />
@@ -81,7 +81,7 @@ export function ChatBubbleSkeleton() {
     <div className="flex justify-start animate-pulse">
       <div className="max-w-[75%]">
         <div className="h-2.5 w-16 bg-bg-hover rounded mb-1.5 ml-1" />
-        <div className="bg-bg-card border border-border rounded-lg px-4 py-3 space-y-2">
+        <div className="card-elevated rounded-xl px-4 py-3 space-y-2">
           <div className="h-3 w-48 bg-bg-hover rounded" />
           <div className="h-3 w-32 bg-bg-hover rounded" />
         </div>
